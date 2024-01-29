@@ -7,13 +7,27 @@ describe('Sprint 7 Challenge Learner Tests', () => {
   👉 TASK 1 - Unit Testing of sum function at the bottom of this module
 
   Test the following. You can create separate tests or a single test with multiple assertions.
-
+  
     [1] sum() // throws an error 'pass valid numbers'
     [2] sum(2, 'seven') // throws an error 'pass valid numbers'
     [3] sum(1, 3) // returns 4
     [4] sum('1', 2) // returns 3
     [5] sum('10', '3') // returns 13
   */
+
+describe('sum', () => {
+  test('numbers passed are valid', () => {
+    expect(() => sum()).toThrowError('pass valid numbers')
+    expect(() => sum(2, 'seven')).toThrowError('pass valid numbers')
+  })
+  test('numbers add', () => {
+    expect(sum(1, 3)).toEqual(4)
+  })
+  test('numbers and string of numbers add', () => {
+    expect(sum('1', 2)).toEqual(3)
+    expect(sum('10', '3')).toEqual(13)
+  })
+})
 
   /*
   👉 TASK 2 - Integration Testing of HelloWorld component at the bottom of this module
@@ -29,8 +43,34 @@ describe('Sprint 7 Challenge Learner Tests', () => {
     [5] renders a text that reads "JavaScript is pretty awesome"
     [6] renders a text that includes "javaScript is pretty" (use exact = false)
   */
-  test('you can comment out this test', () => {
-    expect(true).toBe(false)
+  // test('you can comment out this test', () => {
+  //   expect(true).toBe(false)
+  // })
+  describe('HelloWorld component', () => {
+    test(`"Home" link is visible`, () => {
+      render(<HelloWorld />)
+      expect(screen.getByText("Home")).toBeVisible()
+    })
+    test(`"About" link is visible`, () => {
+      render(<HelloWorld />)
+      expect(screen.getByText("About")).toBeVisible()
+    })
+    test(`"Blog" link is visible`, () => {
+      render(<HelloWorld />)
+      expect(screen.getByText("Blog")).toBeVisible()
+    })
+    test(`"The Truth" h2 is visible`, () => {
+      render(<HelloWorld />)
+      expect(screen.getByText("The Truth")).toBeVisible()
+    })
+    test(`"JavaScript is pretty awesome" p is visible`, () => {
+      render(<HelloWorld />)
+      expect(screen.getByText("JavaScript is pretty awesome")).toBeVisible()
+    })
+    test(`Text that includes "javascript is pretty"`, () => {
+      render(<HelloWorld />)
+      expect(screen.queryByText("javascript is pretty", {exact: false})).toBeVisible()
+    })
   })
 })
 

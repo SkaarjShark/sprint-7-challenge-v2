@@ -52,13 +52,11 @@ export default function Form() {
   const [enableSubmit, setEnableSubmit] = useState(false)
 
   useEffect(() => {
-    console.log(order)
     schema.isValid(order).then(setEnableSubmit)
   }, [order])
 
   function onChange(evt) {
     let { name, value, checked, type, id } = evt.target
-    console.log({ name, value, checked, type, id })
     if (type == "checkbox") {
       let checkboxes = order.toppings
       if (checkboxes.includes(id)) {
@@ -96,15 +94,15 @@ export default function Form() {
   return (
     <form>
       <h2>Order Your Pizza</h2>
-      {successMessage && <div className='success'>Thank you for your order!</div>}
-      {failMessage && <div className='failure'>Something went wrong</div>}
+      {successMessage && <div className='success'>{successMessage}</div>}
+      {failMessage && <div className='failure'>{failMessage}</div>}
 
       <div className="input-group">
         <div>
           <label htmlFor="fullName">Full Name</label><br />
           <input placeholder="Type full name" id="fullName" name="fullName" type="text" value={order.fullName} onChange={onChange}/>
         </div>
-        {errors.fullName && <div className='error'>Bad value</div>}
+        {errors.fullName && <div className='error'>{errors.fullName}</div>}
       </div>
 
       <div className="input-group">
@@ -117,7 +115,7 @@ export default function Form() {
             <option key={4} value="L">Large</option>
           </select>
         </div>
-        {errors.size && <div className='error'>Bad value</div>}
+        {errors.size && <div className='error'>{errors.size}</div>}
       </div>
 
       <div className="input-group">
